@@ -1,0 +1,91 @@
+local player = game.Players.LocalPlayer
+local UIS = game:GetService("UserInputService")
+
+local function AddMoney(amount)
+
+	local names = {
+		"Money","Cash","Coins","Coin",
+		"Gold","Yen","Currency","$"
+	}
+
+	for _,name in pairs(names) do
+		
+		local v = player:FindFirstChild(name,true)
+		
+		if v and (v:IsA("IntValue") or v:IsA("NumberValue")) then
+			v.Value += amount
+			return
+		end
+	end
+
+	for _,v in pairs(player:GetDescendants()) do
+		
+		if v:IsA("IntValue") or v:IsA("NumberValue") then
+			v.Value += amount
+			return
+		end
+	end
+end
+
+local gui = Instance.new("ScreenGui")
+gui.Parent = player.PlayerGui
+
+local icon = Instance.new("ImageButton")
+icon.Size = UDim2.new(0,50,0,50)
+icon.Position = UDim2.new(0,100,0,100)
+icon.BackgroundTransparency = 1
+icon.Image = "rbxassetid://6031280882"
+icon.Active = true
+icon.Draggable = true
+icon.Parent = gui
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0,260,0,170)
+frame.Position = UDim2.new(0,160,0,100)
+frame.Visible = false
+frame.Parent = gui
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1,0,0,25)
+title.Text = "Wave"
+title.TextSize = 16
+title.Parent = frame
+
+local moneyText = Instance.new("TextLabel")
+moneyText.Size = UDim2.new(0,150,0,30)
+moneyText.Position = UDim2.new(0,5,0,40)
+moneyText.Text = "+100 tiền mỗi giây"
+moneyText.TextSize = 14
+moneyText.Parent = frame
+
+local moneyButton = Instance.new("TextButton")
+moneyButton.Size = UDim2.new(0,70,0,30)
+moneyButton.Position = UDim2.new(0,180,0,40)
+moneyButton.Text = "OFF"
+moneyButton.TextSize = 14
+moneyButton.Parent = frame
+
+local jumpText = Instance.new("TextLabel")
+jumpText.Size = UDim2.new(0,150,0,30)
+jumpText.Position = UDim2.new(0,5,0,85)
+jumpText.Text = "Infinite Jump"
+jumpText.TextSize = 14
+jumpText.Parent = frame
+
+local jumpButton = Instance.new("TextButton")
+jumpButton.Size = UDim2.new(0,70,0,30)
+jumpButton.Position = UDim2.new(0,180,0,85)
+jumpButton.Text = "OFF"
+jumpButton.TextSize = 14
+jumpButton.Parent = frame
+
+local moneyEnabled = false
+local jumpEnabled = false
+
+moneyButton.MouseButton1Click:Connect(function()
+	moneyEnabled = not moneyEnabled
+	moneyButton.Text = moneyEnabled and "ON" or "OFF"
+end)
+
+jumpButton.MouseButton1Click:Connect(function()
+	jumpEnabled =
